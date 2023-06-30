@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block styling %}
+    {{ super() }}
+    <link rel="stylesheet" href="../static/css/styles.css">
+{% endblock %}
+{% block title %}Jennifer's To-Do List{% endblock %}
+{% block content %}
+
+<h1>Search Results for {{ search_tag }} tag</h1>
+
+<div class="cards">
+    {% for task in tasks %}
+    <div class="flip-card">
+        <div class="flip-card-inner">
+            <div class="flip-card-front"
+                {% if task.priority == "1 (High)" %} style="border: 5px solid #fcc3c8;" {% endif %}
+                {% if task.priority == "2 (Normal)" %} style="border: 5px solid #f8f097;" {% endif %}
+                {% if task.priority == "3 (Low)" %} style="border: 5px solid #c8fcc3;" {% endif %}
+                >
+                <div class="card-name">
+                    <p>{{ task.task }}</p>
+                </div>
+                <div class="card-tags">
+                    <p>Tags: {{ task.tags }}</p>
+                </div>
+                {% if task.status == "Complete" %}
+                <div class="tick-mark">
+                    <p>✔</p>
+                </div>
+                {% endif %}
+            </div>
+            <div class="flip-card-back">
+                <div class="card-params">
+                    <p>Due: {{ task.due_date }}</p>
+                    <p
+                        {% if task.priority == "1 (High)" %} style="color:#f7616e;" {% endif %}
+                        {% if task.priority == "2 (Normal)" %} style="color:#eec811;" {% endif %}
+                        {% if task.priority == "3 (Low)" %} style="color:#30DC20;" {% endif %}
+                    >
+                        {% if task.priority == "1 (High)" %}High{% endif%}
+                        {% if task.priority == "2 (Normal)" %}Normal{% endif%}
+                        {% if task.priority == "3 (Low)" %}Low{% endif%}
+                        Priority
+                    </p>
+                    <p>{{ task.status }}</p>
+                </div>
+                <div class="card-info">
+                    <p>{{ task.info }}</p>
+                </div>
+                <div class="card-link">
+                    <a href="{{ url_for('edit_task', task_id=task.id) }}">Update</a>
+                    {% if task.status != "Complete" %}
+                    <a href="{{ url_for('mark_done', task_id=task.id) }}">Mark complete</a>
+                    {% endif %}
+                    <a href="{{ url_for('delete_task', task_id=task.id) }}">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block styling %}
+    {{ super() }}
+    <link rel="stylesheet" href="../static/css/styles.css">
+{% endblock %}
+{% block title %}Update a Task{% endblock %}
+{% block content %}
+
+{% from "bootstrap/form.html" import render_form %}
+<div class="container" id="form_container">
+  <div class="col-sm-12 col-md-8">
+    <h1>Update a Task</h1>
+    {{ render_form(form, novalidate=True) }}
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block styling %}
+    {{ super() }}
+    <link rel="stylesheet" href="static/css/styles.css">
+{% endblock %}
+{% block title %}Add a New Task{% endblock %}
+{% block content %}
+
+<h1>Add a New Task</h1>
+
+{% from "bootstrap/form.html" import render_form %}
+<div class="container" id="form_container">
+  <div class="col-sm-12 col-md-8">
+    {{ render_form(form, novalidate=True) }}
+  </div>
+</div>
+
+{% endblock %}
